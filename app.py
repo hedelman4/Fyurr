@@ -207,7 +207,14 @@ def create_venue_submission():
   # TODO: insert form data as a new Venue record in the db, instead
   # TODO: modify data to be the data object returned from db insertion
   try:
-      id = max(max(db.session.query(Venue.id).all())[0], max(db.session.query(Artist.id).all())[0]) + 1
+      if db.session.query(Venue.id).all() == [] and db.session.query(Artist.id).all() == []:
+          id = 1
+      elif db.session.query(Venue.id).all() == []:
+          id = max(db.session.query(Artist.id).all())[0] + 1
+      elif db.session.query(Artist.id).all() == []:
+          id = max(db.session.query(Venue.id).all())[0] + 1
+      else:
+          id = max(max(db.session.query(Venue.id).all())[0], max(db.session.query(Artist.id).all())[0]) + 1
       name = request.form.get('name')
       city = request.form.get('city')
       state = request.form.get('state')
@@ -441,7 +448,14 @@ def create_artist_submission():
   # TODO: insert form data as a new Venue record in the db, instead
   # TODO: modify data to be the data object returned from db insertion
   try:
-    id = max(max(db.session.query(Venue.id).all())[0], max(db.session.query(Artist.id).all())[0]) + 1
+    if db.session.query(Venue.id).all() == [] and db.session.query(Artist.id).all() == []:
+        id = 1
+    elif db.session.query(Venue.id).all() == []:
+        id = max(db.session.query(Artist.id).all())[0] + 1
+    elif db.session.query(Artist.id).all() == []:
+        id = max(db.session.query(Venue.id).all())[0] + 1
+    else:
+        id = max(max(db.session.query(Venue.id).all())[0], max(db.session.query(Artist.id).all())[0]) + 1
     name = request.form.get('name')
     city = request.form.get('city')
     state = request.form.get('state')
